@@ -45,4 +45,14 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: Run coverage
-        run: go test  -v
+        run: go test  -v  -coverprofile=coverage.txt -covermode=atomic -cover
+      - name: HTTP Request Action
+        uses: fjogeleit/http-request-action@v1.16.1
+        with:
+          url: 'https://api.github.com/repos/vanijin/test1/statuses/'${{github.sha}}
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json","Authorization":"Bearer '${{github.token}}'","X-GitHub-Api-Version":"X-GitHub-Api-Version","Accept":"application/vnd.github+json"}'
+          data: '{"state":"success","target_url":"https://example.com/build/status","description":"The build succeeded!","context":"CI"}'
+
+
+
