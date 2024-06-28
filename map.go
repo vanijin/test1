@@ -14,4 +14,5 @@ func IntMix(a, b int) int {
 
 func main() {
 	fmt.Print(IntMix(1, 2))
+	fmt.Print(IntMix(1, 2))
 }
